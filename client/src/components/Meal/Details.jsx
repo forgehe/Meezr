@@ -40,7 +40,8 @@ export default function Details(props) {
     console.log("objArray", objArray);
 
     const ingredientList = objArray.map(
-      (obj) => `${obj.serving_size} servings ${obj.product}`
+      (obj) =>
+        `${obj.serving_size ? obj.serving_size : 1} servings ${obj.product}`
     );
     const data = {
       ingredients: ingredientList,

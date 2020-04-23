@@ -44,7 +44,7 @@ export default function NewMeal() {
   const [state, setState] = useState({
     size: "Medium",
     type: "Breakfast",
-    calorieGoal: 500,
+    calorieGoal: 600,
     ingredients: {},
     title: "",
     description: "",
