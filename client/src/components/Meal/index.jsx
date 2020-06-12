@@ -37,7 +37,7 @@ const useStyles = makeStyles(() => ({
     gridTemplateColumns: "20em auto",
     gridTemplateRows: "minmax(6em, auto) auto auto auto",
     width: "100%",
-    margin: "1em",
+    height: "max-content",
     boxShadow: theme.shadows[2],
     "&:hover": {
       boxShadow: theme.shadows[10],
@@ -49,7 +49,7 @@ const useStyles = makeStyles(() => ({
   },
   image: {
     gridArea: "image",
-    height: "20em",
+    minHeight: "20em",
   },
   content: {
     display: "grid",
@@ -68,7 +68,9 @@ const useStyles = makeStyles(() => ({
     gridArea: "tags",
     alignSelf: "end",
     display: "flex",
-    justifyContent: "space-evenly",
+  },
+  tagsItem: {
+    margin: "0 0.3em",
   },
   score: {
     gridArea: "score",
@@ -216,7 +218,11 @@ export default function Meal(props) {
 
           <div className={classes.tags}>
             {tags.map((tag) => (
-              <Chip key={tag.id} label={tag.category} />
+              <Chip
+                className={classes.tagsItem}
+                key={tag.id}
+                label={tag.category}
+              />
             ))}
           </div>
         </CardContent>

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { LinearProgress } from "@material-ui/core";
 import axios from "axios";
+import theme from "theme";
 
 import Meal from "../Meal";
 import Cookies from "js-cookie";
@@ -11,6 +12,10 @@ const useStyles = makeStyles({
     display: "grid",
     gridTemplateColumns: "1fr 1fr",
     gridGap: "1em",
+    padding: "1em",
+    [theme.breakpoints.down("md")]: {
+      gridTemplateColumns: "1fr",
+    },
   },
 });
 
