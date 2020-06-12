@@ -6,7 +6,6 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
-import InputBase from "@material-ui/core/InputBase";
 import Button from "@material-ui/core/Button";
 import Link from "@material-ui/core/Link";
 import { Link as RouterLink } from "react-router-dom";
@@ -18,7 +17,6 @@ import { ThemeProvider } from "@material-ui/core/styles";
 import theme from "theme";
 import SearchBox from "../Navbar/search";
 import Cookies from "js-cookie";
-import { Dialog } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   authStyle: {
@@ -154,12 +152,12 @@ export default function Navbar(props) {
             user_password: `${data.user_password}`,
           },
         })
-          .then((res) => {
-            // console.log("new cookie", res);
-            handleClose();
-            setCookie(res.data["user_id"]);
-            setAuth(Cookies.get("user_id"));
-          })
+        .then((res) => {
+          // console.log("setting cookie", res);
+          handleClose();
+          setCookie(res.data["user_id"]);
+          setAuth(Cookies.get("user_id"));
+        })
           .catch((err) => {
             console.log(err);
           })
@@ -284,6 +282,11 @@ export default function Navbar(props) {
                 }}
                 inputProps={{ "aria-label": "search" }}
               />
+            </div>
+            <div className={classes.grow}>
+              { !auth ? 
+              <Typography color="secondary-light"> Welcome to Meez'r - a recipe sharing website! </Typography>: 
+              <Typography color="secondary-light"> Welcome back to Meez'r! </Typography>}
             </div>
 
             <div className={classes.grow} />

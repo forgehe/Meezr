@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import {
-  Typography,
   CircularProgress,
   Card,
   CardHeader,
@@ -11,7 +10,6 @@ import {
   TableRow,
   TableCell,
   TableBody,
-  Grow,
 } from "@material-ui/core";
 import {} from "@material-ui/icons";
 import axios from "axios";
@@ -63,8 +61,6 @@ export default function Details(props) {
   }, []);
 
   const showData = (array) => {
-    // console.log(array);
-
     return (
       <>
         {/* <Typography variant="body2">Prep Time: {prepTime}</Typography> */}
@@ -122,7 +118,7 @@ export default function Details(props) {
             </Table>
           </CardContent>
         </Card>
-
+{/* 
         <Typography variant="body2">
           Approx Cost: $
           {(
@@ -130,7 +126,7 @@ export default function Details(props) {
               return total + currentValue.estimatedCost.value;
             }, 0) / 100
           ).toFixed(2)}
-        </Typography>
+        </Typography> */}
       </>
     );
   };

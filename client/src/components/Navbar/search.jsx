@@ -1,11 +1,8 @@
 import React from "react";
-import axios from "axios";
 import { useHistory } from "react-router-dom";
 
 import theme from "theme";
 import { ThemeProvider } from "@material-ui/core/styles";
-import { TextField, Input } from "@material-ui/core";
-import InputBase from "@material-ui/core/InputBase";
 import SearchBar from "material-ui-search-bar";
 
 export default function SearchBox(props) {

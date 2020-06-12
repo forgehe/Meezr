@@ -94,6 +94,7 @@ const useStyles = makeStyles(() => ({
 
 export default function Meal(props) {
   const [state, setState] = useState(props.props);
+  const [auth, setAuth] = useState(Cookies.get('user_id'))
   // console.log("Meal props: ", props.props);
   const classes = useStyles();
   const {
@@ -118,6 +119,8 @@ export default function Meal(props) {
   }, [props.props]);
   useEffect(()=> {},
   [isFav])
+  useEffect(()=> {},
+  [auth])
 
 
   const [expanded, setExpanded] = useState(is_extended || false);
@@ -152,7 +155,7 @@ export default function Meal(props) {
   }
 
   const checkFav = () => {
-    if (!isFav) {
+    if (isFav === false) {
       favItem()
     } else {
       unFavItem()
@@ -227,7 +230,7 @@ export default function Meal(props) {
             className={classes.favorite}
             onClick={checkFav}
           >
-            {isFav && Cookies.get("user_id") ? <Favorite /> : <FavoriteBorder />}
+            {isFav && auth ? <Favorite color="secondary"/> : <FavoriteBorder color="secondary"/>}
           </IconButton>
           <ClickAwayListener onClickAway={handleTooltipClose}>
             <Tooltip
