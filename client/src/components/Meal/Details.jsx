@@ -18,20 +18,7 @@ const useStyles = makeStyles({});
 
 export default function Details(props) {
   const classes = useStyles();
-  const {
-    id,
-    image,
-    title,
-    description,
-    user,
-    ingredients,
-    tags,
-    calories,
-    score,
-    prepTime,
-    cost,
-    is_favorited,
-  } = props.state;
+  const { ingredients } = props.state;
   const [data, setData] = useState([]);
 
   const fetchIngredientInfo = (objArray) => {

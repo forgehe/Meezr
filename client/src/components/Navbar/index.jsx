@@ -259,6 +259,7 @@ export default function Navbar(props) {
       anchorOrigin={{ vertical: "top", horizontal: "right" }}
       id={menuId}
       keepMounted
+      open={false}
       transformOrigin={{ vertical: "top", horizontal: "right" }}
     ></Menu>
   );
@@ -284,15 +285,12 @@ export default function Navbar(props) {
             </div>
             <div className={classes.grow}>
               {!auth ? (
-                <Typography color="secondary-light">
+                <Typography>
                   {" "}
                   Welcome to Meez'r - a recipe sharing website!{" "}
                 </Typography>
               ) : (
-                <Typography color="secondary-light">
-                  {" "}
-                  Welcome back to Meez'r!{" "}
-                </Typography>
+                <Typography> Welcome back to Meez'r! </Typography>
               )}
             </div>
 

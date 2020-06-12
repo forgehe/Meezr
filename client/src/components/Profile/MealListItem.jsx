@@ -9,7 +9,7 @@ import { Link, Typography } from "@material-ui/core";
 
 const useStyles = makeStyles({
   root: {
-    maxWidth: 345,
+    width: 345,
     minHeight: 100,
   },
 });

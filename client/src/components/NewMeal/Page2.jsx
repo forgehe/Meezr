@@ -55,7 +55,7 @@ export default function Page2(props) {
   };
 
   useEffect(() => {
-    if (debouncedSearchValue != "") {
+    if (debouncedSearchValue !== "") {
       axios
         .get("/api/ingredients/autocomplete", {
           params: {
@@ -73,7 +73,6 @@ export default function Page2(props) {
   }, [open]);
 
   useEffect(() => {
-    // console.log("debounce!", debouncedState);
     if (
       Object.keys(debouncedState.ingredients).length !== 0 &&
       debouncedState.ingredients.constructor === Object
@@ -85,7 +84,6 @@ export default function Page2(props) {
         ingredients: ingredientList,
         servings: 1,
       };
-      // console.log("visualizeNutrition with", data);
       axios
         .post("/api/ingredients/visualizeNutrition", data)
         .then((res) => setStatsHTML(res.data));

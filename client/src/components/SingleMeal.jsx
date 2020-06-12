@@ -13,33 +13,33 @@ export default function SingleMeal(props) {
 
   const [state, setState] = useState([]);
   const { history, location, match } = props.props;
-
-  // reloads data from the database, and then setState
-  function getData() {
-    return Promise.resolve(axios.get(`/api/${location.pathname}`)).then(
-      (res) => {
-        return setState([res.data]);
-      }
-    );
-  }
   const [userData, setUserData] = useState([]);
 
-  function getFavorites() {
-    if (Cookies.get("user_id")) {
-      return Promise.resolve(
-        axios.get(`/api/favorites/index/${Cookies.get("user_id")}`)
-      ).then((res) => {
-        let returnArray = [];
-        for (let item of res.data.favorites) {
-          if (!returnArray.includes(item.meal_id)) {
-            returnArray.push(item.meal_id);
-          }
-        }
-        setUserData(returnArray);
-      });
-    }
-  }
   useEffect(() => {
+    // reloads data from the database, and then setState
+    function getData() {
+      return Promise.resolve(axios.get(`/api/${location.pathname}`)).then(
+        (res) => {
+          return setState([res.data]);
+        }
+      );
+    }
+
+    function getFavorites() {
+      if (Cookies.get("user_id")) {
+        return Promise.resolve(
+          axios.get(`/api/favorites/index/${Cookies.get("user_id")}`)
+        ).then((res) => {
+          let returnArray = [];
+          for (let item of res.data.favorites) {
+            if (!returnArray.includes(item.meal_id)) {
+              returnArray.push(item.meal_id);
+            }
+          }
+          setUserData(returnArray);
+        });
+      }
+    }
     getData();
     getFavorites();
   }, []);
@@ -49,8 +49,6 @@ export default function SingleMeal(props) {
       id,
       title,
       desc,
-      user_id,
-      updated_at,
       meal_photos,
       meal_ingredients,
       meal_categories,

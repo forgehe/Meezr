@@ -1,7 +1,7 @@
 import React from "react";
 
 import MealListItem from "../Profile/MealListItem";
-import { Typography, List, ListItem, Grid } from "@material-ui/core";
+import { Typography, Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
@@ -55,13 +55,16 @@ export default function MealList(props) {
       </Grid>
     );
   }
-  if (props.info) {
-    return <MakeList />;
-  } else {
-    return (
-      <Typography variant="h5">
-        {strings[Math.floor(Math.random() * strings.length)]}
-      </Typography>
-    );
-  }
+
+  return (
+    <>
+      {props.info ? (
+        MakeList()
+      ) : (
+        <Typography variant="h5">
+          {strings[Math.floor(Math.random() * strings.length)]}
+        </Typography>
+      )}
+    </>
+  );
 }

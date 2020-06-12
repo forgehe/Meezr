@@ -45,7 +45,7 @@ export default function Page4(props) {
   const classes = useStyles();
   const { state, onChange, onBoolChange } = props;
 
-  const { is_public, ingredients, image_url, description, title } = state;
+  const { is_public, image_url, description, title } = state;
 
   const renderMealPreview = () => {
     const ingredients = Object.values(state.ingredients);
@@ -92,7 +92,7 @@ export default function Page4(props) {
   );
 
   const handleImageChange = (event) => {
-    const { name, value } = event.target;
+    const { value } = event.target;
     setNewImage(value);
   };
 
@@ -105,9 +105,7 @@ export default function Page4(props) {
     });
   }, [newImageArr]);
 
-  useEffect(() => {
-    renderMealPreview();
-  }, [state]);
+  useEffect(renderMealPreview, [state]);
 
   return (
     <section className={classes.page4}>

@@ -22,37 +22,36 @@ const useStyles = makeStyles({
 export default function Browse(props) {
   const classes = useStyles();
   const [state, setState] = useState([]);
-  const { history, location, match } = props.props;
+  const { location, match } = props.props;
   const [userData, setUserData] = useState([]);
 
-  // reloads data from the database, and then setState
-  function getData() {
-    return Promise.resolve(
-      axios.get(
-        `/api/${location.pathname === "/" ? "/meals" : location.pathname}`
-      )
-    ).then((res) => {
-      return setState(res.data);
-    });
-  }
-
-  function getFavorites() {
-    if (Cookies.get("user_id")) {
+  useEffect(() => {
+    // reloads data from the database, and then setState
+    function getData() {
       return Promise.resolve(
-        axios.get(`/api/favorites/index/${Cookies.get("user_id")}`)
+        axios.get(
+          `/api/${location.pathname === "/" ? "/meals" : location.pathname}`
+        )
       ).then((res) => {
-        let returnArray = [];
-        for (let item of res.data.favorites) {
-          if (!returnArray.includes(item.meal_id)) {
-            returnArray.push(item.meal_id);
-          }
-        }
-        setUserData(returnArray);
+        return setState(res.data);
       });
     }
-  }
 
-  useEffect(() => {
+    function getFavorites() {
+      if (Cookies.get("user_id")) {
+        return Promise.resolve(
+          axios.get(`/api/favorites/index/${Cookies.get("user_id")}`)
+        ).then((res) => {
+          let returnArray = [];
+          for (let item of res.data.favorites) {
+            if (!returnArray.includes(item.meal_id)) {
+              returnArray.push(item.meal_id);
+            }
+          }
+          setUserData(returnArray);
+        });
+      }
+    }
     getData();
     getFavorites();
   }, [match.params]);
@@ -62,8 +61,6 @@ export default function Browse(props) {
       id,
       title,
       desc,
-      user_id,
-      updated_at,
       meal_photos,
       meal_ingredients,
       meal_categories,

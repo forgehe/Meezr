@@ -100,18 +100,7 @@ export default function Meal(props) {
   const [state, setState] = useState(props.props);
   const [auth, setAuth] = useState(Cookies.get("user_id"));
   const classes = useStyles();
-  const {
-    id,
-    image,
-    title,
-    description,
-    user,
-    tags,
-    calories,
-    score,
-    is_favorited,
-    is_extended,
-  } = state;
+  const { id, image, title, description, user, tags, is_extended } = state;
 
   const [isFav, setIsFav] = useState(state.is_favorited || false);
 
