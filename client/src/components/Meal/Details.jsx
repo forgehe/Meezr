@@ -35,8 +35,6 @@ export default function Details(props) {
   const [data, setData] = useState([]);
 
   const fetchIngredientInfo = (objArray) => {
-    console.log("objArray", objArray);
-
     const ingredientList = objArray.map(
       (obj) =>
         `${obj.serving_size ? obj.serving_size : 1} servings ${obj.product}`
@@ -46,15 +44,12 @@ export default function Details(props) {
       servings: 1,
       includeNutrition: true,
     };
-    // console.log("api call data:", data);
-
     return axios.post("/api/ingredients/parse", data);
   };
 
   useEffect(() => {
     fetchIngredientInfo(ingredients).then((res) => {
       if (res.status === 200) {
-        // console.log("res.data", res.data);
         setData(res.data);
       }
     });
@@ -63,7 +58,6 @@ export default function Details(props) {
   const showData = (array) => {
     return (
       <>
-        {/* <Typography variant="body2">Prep Time: {prepTime}</Typography> */}
         <Card>
           <CardHeader title={"Ingredients"} />
           <CardContent>
@@ -84,11 +78,16 @@ export default function Details(props) {
                     </TableCell>
                     <TableCell align="right">{ingredient.amount}</TableCell>
                     <TableCell align="right">
-                      {ingredient.nutrition.nutrients[0].amount}{" "}
-                      {ingredient.nutrition.nutrients[0].unit}
+                      {ingredient.nutrition
+                        ? `${ingredient.nutrition.nutrients[0].amount} ${ingredient.nutrition.nutrients[0].unit}`
+                        : ""}
                     </TableCell>
                     <TableCell align="right">
-                      ${(ingredient.estimatedCost.value / 100).toFixed(2)}
+                      {ingredient.estimatedCost
+                        ? `$${(ingredient.estimatedCost.value / 100).toFixed(
+                            2
+                          )}`
+                        : ""}
                     </TableCell>
                   </TableRow>
                 ))}
@@ -99,7 +98,10 @@ export default function Details(props) {
                     {array
                       .reduce(function (total, currentValue) {
                         return (
-                          total + currentValue.nutrition.nutrients[0].amount
+                          total +
+                          (currentValue.nutrition
+                            ? currentValue.nutrition.nutrients[0].amount
+                            : 0)
                         );
                       }, 0)
                       .toFixed(2)}
@@ -109,7 +111,12 @@ export default function Details(props) {
                     $
                     {(
                       array.reduce(function (total, currentValue) {
-                        return total + currentValue.estimatedCost.value;
+                        return (
+                          total +
+                          (currentValue.estimatedCost
+                            ? currentValue.estimatedCost.value
+                            : 0)
+                        );
                       }, 0) / 100
                     ).toFixed(2)}
                   </TableCell>
@@ -118,15 +125,6 @@ export default function Details(props) {
             </Table>
           </CardContent>
         </Card>
-{/* 
-        <Typography variant="body2">
-          Approx Cost: $
-          {(
-            array.reduce(function (total, currentValue) {
-              return total + currentValue.estimatedCost.value;
-            }, 0) / 100
-          ).toFixed(2)}
-        </Typography> */}
       </>
     );
   };
