@@ -1,23 +1,21 @@
 import React from "react";
-import { makeStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
+import { makeStyles } from "@material-ui/core/styles";
+import Card from "@material-ui/core/Card";
+import CardActionArea from "@material-ui/core/CardActionArea";
+import CardActions from "@material-ui/core/CardActions";
+import CardContent from "@material-ui/core/CardContent";
+import CardMedia from "@material-ui/core/CardMedia";
 import { Link, Typography } from "@material-ui/core";
 
 const useStyles = makeStyles({
   root: {
     maxWidth: 345,
-    minHeight: 100
+    minHeight: 100,
   },
 });
 
-
 export default function MealListItem(props) {
   const classes = useStyles();
-  console.log(props)
   return (
     <Card className={classes.root}>
       <CardActionArea>
@@ -38,10 +36,10 @@ export default function MealListItem(props) {
         </CardContent>
       </CardActionArea>
       <CardActions>
-        <Link button href={`/meals/${props.id}`}>View!</Link>
+        <Link button href={`/meals/${props.id}`}>
+          View!
+        </Link>
       </CardActions>
     </Card>
   );
-
 }
-

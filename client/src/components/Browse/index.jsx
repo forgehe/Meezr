@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import { Container, LinearProgress } from "@material-ui/core";
+import { LinearProgress } from "@material-ui/core";
 import axios from "axios";
 
 import Meal from "../Meal";
@@ -18,8 +18,7 @@ export default function Browse(props) {
   const classes = useStyles();
   const [state, setState] = useState([]);
   const { history, location, match } = props.props;
-  console.log("props", props);
-  const [userData, setUserData] = useState([])
+  const [userData, setUserData] = useState([]);
 
   // reloads data from the database, and then setState
   function getData() {
@@ -33,34 +32,22 @@ export default function Browse(props) {
   }
 
   function getFavorites() {
-    if(Cookies.get("user_id")){
+    if (Cookies.get("user_id")) {
       return Promise.resolve(
-        axios.get(
-          `/api/favorites/index/${Cookies.get("user_id")}`
-        )
+        axios.get(`/api/favorites/index/${Cookies.get("user_id")}`)
       ).then((res) => {
-        let returnArray = []
-        for (let item of res.data.favorites){
-          if (!returnArray.includes(item.meal_id)){
-            returnArray.push(item.meal_id)
+        let returnArray = [];
+        for (let item of res.data.favorites) {
+          if (!returnArray.includes(item.meal_id)) {
+            returnArray.push(item.meal_id);
           }
         }
-        console.log(returnArray)
         setUserData(returnArray);
       });
     }
-
-
   }
 
-
-
-
-
-  // console.log("index state", state);
-
   useEffect(() => {
-    // console.log("index GetData", state);
     getData();
     getFavorites();
   }, [match.params]);
@@ -77,10 +64,9 @@ export default function Browse(props) {
       meal_categories,
       user,
     } = meal;
-    let item_fav_status = false
-    if(userData.includes(id)){
-
-      item_fav_status = true
+    let item_fav_status = false;
+    if (userData.includes(id)) {
+      item_fav_status = true;
     }
     const mealProps = {
       id: id,
@@ -102,7 +88,14 @@ export default function Browse(props) {
   return (
     <>
       <div className={classes.browse}>
-        {meals.length === 0 ? <LinearProgress /> : meals}
+        {meals.length === 0 ? (
+          <>
+            <LinearProgress />
+            <LinearProgress />
+          </>
+        ) : (
+          meals
+        )}
       </div>
     </>
   );

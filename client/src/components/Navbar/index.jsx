@@ -9,7 +9,7 @@ import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import Link from "@material-ui/core/Link";
 import { Link as RouterLink } from "react-router-dom";
-import AccountCircle from "@material-ui/icons/AccountCircle"
+import AccountCircle from "@material-ui/icons/AccountCircle";
 import Menu from "@material-ui/core/Menu";
 
 import RenderAuth from "../Navbar/RenderAuth";
@@ -91,29 +91,33 @@ export default function Navbar(props) {
   const [auth, setAuth] = React.useState(Cookies.get("user_id") || null);
   const [popup, setPopup] = React.useState(props.popup || false);
   const [button, setButton] = React.useState(null);
-  const [state, setState] = React.useState(null)
+  const [state, setState] = React.useState(null);
   const myRef = React.createRef();
 
   const getMealsForUser = (user) => {
-    return Promise.resolve(axios({
-      method: "get",
-      url: `/api/users/${user}`,
-    }).then((res) => {
-      setState(res.data);})
-    )
-  }
+    return Promise.resolve(
+      axios({
+        method: "get",
+        url: `/api/users/${user}`,
+      }).then((res) => {
+        setState(res.data);
+      })
+    );
+  };
 
   const handleClickOpen = (buttonType) => {
-
-    if(Cookies.get("user_id")){
+    if (Cookies.get("user_id")) {
       getMealsForUser(Cookies.get("user_id"))
-      .then(()=>{
-        setButton(buttonType)
-        setPopup(true)
-      }).catch(err => {console.log(err); })
+        .then(() => {
+          setButton(buttonType);
+          setPopup(true);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     } else {
-      setButton(buttonType)
-      setPopup(true)
+      setButton(buttonType);
+      setPopup(true);
     }
   };
 
@@ -122,18 +126,18 @@ export default function Navbar(props) {
     setButton(null);
   };
 
-
-
-
-
   const logout = () => {
     Cookies.remove("user_id");
-    handleClose()
-    setAuth(null)
-    return Promise.resolve(axios({
-      method: "get",
-      url: "/api/logout"
-    }).catch(err => {console.log(err)}))
+    handleClose();
+    setAuth(null);
+    return Promise.resolve(
+      axios({
+        method: "get",
+        url: "/api/logout",
+      }).catch((err) => {
+        console.log(err);
+      })
+    );
   };
 
   const setCookie = (cookieID) => {
@@ -152,12 +156,12 @@ export default function Navbar(props) {
             user_password: `${data.user_password}`,
           },
         })
-        .then((res) => {
-          // console.log("setting cookie", res);
-          handleClose();
-          setCookie(res.data["user_id"]);
-          setAuth(Cookies.get("user_id"));
-        })
+          .then((res) => {
+            // console.log("setting cookie", res);
+            handleClose();
+            setCookie(res.data["user_id"]);
+            setAuth(Cookies.get("user_id"));
+          })
           .catch((err) => {
             console.log(err);
           })
@@ -189,19 +193,17 @@ export default function Navbar(props) {
     }
   };
 
-
   const CheckAuth = () => {
     if (auth) {
       return (
         <div>
-          
           <IconButton
             edge="end"
             aria-label="account of current user"
             aria-controls={menuId}
             aria-haspopup="true"
             color="inherit"
-            onClick={() => handleClickOpen('profile')}
+            onClick={() => handleClickOpen("profile")}
           >
             <AccountCircle />
           </IconButton>
@@ -245,14 +247,11 @@ export default function Navbar(props) {
             registerUser={registerUser}
             loginUser={loginUser}
             profileData={state}
-
           />
         </div>
       );
     }
   };
-
-
 
   const menuId = "primary-search-account-menu";
   const renderMenu = (
@@ -284,9 +283,17 @@ export default function Navbar(props) {
               />
             </div>
             <div className={classes.grow}>
-              { !auth ? 
-              <Typography color="secondary-light"> Welcome to Meez'r - a recipe sharing website! </Typography>: 
-              <Typography color="secondary-light"> Welcome back to Meez'r! </Typography>}
+              {!auth ? (
+                <Typography color="secondary-light">
+                  {" "}
+                  Welcome to Meez'r - a recipe sharing website!{" "}
+                </Typography>
+              ) : (
+                <Typography color="secondary-light">
+                  {" "}
+                  Welcome back to Meez'r!{" "}
+                </Typography>
+              )}
             </div>
 
             <div className={classes.grow} />
