@@ -26,8 +26,8 @@ import { ThemeProvider } from "@material-ui/core/styles";
 import theme from "theme";
 import copy from "clipboard-copy";
 import Details from "./Details";
-import axios from "axios"
-import Cookies from "js-cookie"
+import axios from "axios";
+import Cookies from "js-cookie";
 
 const useStyles = makeStyles(() => ({
   meal: {
@@ -35,7 +35,7 @@ const useStyles = makeStyles(() => ({
     gridTemplateAreas:
       '"image title" "image content" "image share" "collapse collapse"',
     gridTemplateColumns: "20em auto",
-    gridTemplateRows: "6em auto auto auto",
+    gridTemplateRows: "minmax(6em, auto) auto auto auto",
     width: "100%",
     margin: "1em",
     boxShadow: theme.shadows[2],
@@ -45,7 +45,7 @@ const useStyles = makeStyles(() => ({
   },
   title: {
     gridArea: "title",
-    alignSelf: "end",
+    alignSelf: "start",
   },
   image: {
     gridArea: "image",
@@ -67,6 +67,8 @@ const useStyles = makeStyles(() => ({
   tags: {
     gridArea: "tags",
     alignSelf: "end",
+    display: "flex",
+    justifyContent: "space-evenly",
   },
   score: {
     gridArea: "score",
@@ -94,8 +96,7 @@ const useStyles = makeStyles(() => ({
 
 export default function Meal(props) {
   const [state, setState] = useState(props.props);
-  const [auth, setAuth] = useState(Cookies.get('user_id'))
-  // console.log("Meal props: ", props.props);
+  const [auth, setAuth] = useState(Cookies.get("user_id"));
   const classes = useStyles();
   const {
     id,
@@ -110,68 +111,63 @@ export default function Meal(props) {
     is_extended,
   } = state;
 
-
-  const [isFav, setIsFav] = useState(state.is_favorited || false)
-  console.log(is_favorited)
+  const [isFav, setIsFav] = useState(state.is_favorited || false);
 
   useEffect(() => {
     setState(props.props);
   }, [props.props]);
-  useEffect(()=> {},
-  [isFav])
-  useEffect(()=> {},
-  [auth])
-
+  useEffect(() => {}, [isFav]);
+  useEffect(() => {}, [auth]);
 
   const [expanded, setExpanded] = useState(is_extended || false);
 
   const favItem = () => {
-    setIsFav(true)
-    if(Cookies.get("user_id")){
-      return Promise.resolve(axios({
-        method: "post",
-        url: "/api/favorites",
-        data: {
-          user_id: Cookies.get("user_id"),
-          meal_id: state.id
-        }
-      }).catch(err => {console.log(err)}))
+    setIsFav(true);
+    if (Cookies.get("user_id")) {
+      return Promise.resolve(
+        axios({
+          method: "post",
+          url: "/api/favorites",
+          data: {
+            user_id: Cookies.get("user_id"),
+            meal_id: state.id,
+          },
+        }).catch((err) => {
+          console.log(err);
+        })
+      );
     }
-    
   };
 
   const unFavItem = () => {
-    setIsFav(false)
-    if(Cookies.get("user_id")){
-      return Promise.resolve(axios({
-        method: "post",
-        url: "/api/favorites/delete",
-        data: {
-          user_id: Cookies.get("user_id"),
-          meal_id: state.id
-        }
-      }).catch(err => {console.log(err)}))
+    setIsFav(false);
+    if (Cookies.get("user_id")) {
+      return Promise.resolve(
+        axios({
+          method: "post",
+          url: "/api/favorites/delete",
+          data: {
+            user_id: Cookies.get("user_id"),
+            meal_id: state.id,
+          },
+        }).catch((err) => {
+          console.log(err);
+        })
+      );
     }
-  }
+  };
 
   const checkFav = () => {
     if (isFav === false) {
-      favItem()
+      favItem();
     } else {
-      unFavItem()
+      unFavItem();
     }
-  }
+  };
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
-
-  // const copy = (event) => {
-  //   console.log(event.currentTarget);
-  //   const target = event.currentTarget;
-  //   target.select();
-  //   document.execCommand("copy");
-  // };
 
   const [open, setOpen] = React.useState(false);
 
@@ -230,7 +226,11 @@ export default function Meal(props) {
             className={classes.favorite}
             onClick={checkFav}
           >
-            {isFav && auth ? <Favorite color="secondary"/> : <FavoriteBorder color="secondary"/>}
+            {isFav && auth ? (
+              <Favorite color="secondary" />
+            ) : (
+              <FavoriteBorder color="secondary" />
+            )}
           </IconButton>
           <ClickAwayListener onClickAway={handleTooltipClose}>
             <Tooltip
