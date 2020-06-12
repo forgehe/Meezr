@@ -1,9 +1,11 @@
 class Api::UsersController < ApplicationController
-  def create  
+
+  def create
+    puts params
     newUser = User.new( 
       user_name: params['user_name'],
       email: params['email'],
-      user_password: params['user_password']
+      password: params['user_password']
 
     )
 
@@ -30,5 +32,6 @@ class Api::UsersController < ApplicationController
       )
     render :json => {user_name: login['user_name'], meals: meals, favorites: favorites}
   end
+
 
 end
