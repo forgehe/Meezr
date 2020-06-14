@@ -55,4 +55,4 @@ gem 'faraday'
 # gem 'faraday_middleware'
 
 # # #spoonacluar sdk
-gem 'openapi_client', :git => 'https://github.com/byuno/spoonacular-sdk.git'
+#gem 'openapi_client', :git => 'https://github.com/byuno/spoonacular-sdk.git'
