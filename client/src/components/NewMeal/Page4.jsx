@@ -105,7 +105,9 @@ export default function Page4(props) {
     });
   }, [newImageArr]);
 
-  useEffect(renderMealPreview, [state]);
+  useEffect(() => {
+    renderMealPreview();
+  }, [state]);
 
   return (
     <section className={classes.page4}>

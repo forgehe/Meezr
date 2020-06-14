@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_13_040509) do
+ActiveRecord::Schema.define(version: 2020_06_12_201220) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "btree_gin"
@@ -31,6 +31,7 @@ ActiveRecord::Schema.define(version: 2020_04_13_040509) do
   enable_extension "pgrowlocks"
   enable_extension "pgstattuple"
   enable_extension "plpgsql"
+  enable_extension "postgis"
   enable_extension "tablefunc"
   enable_extension "unaccent"
   enable_extension "uuid-ossp"
@@ -82,6 +83,13 @@ ActiveRecord::Schema.define(version: 2020_04_13_040509) do
     t.index ["user_id"], name: "index_meals_on_user_id"
   end
 
+  create_table "spatial_ref_sys", primary_key: "srid", id: :integer, default: nil, force: :cascade do |t|
+    t.string "auth_name", limit: 256
+    t.integer "auth_srid"
+    t.string "srtext", limit: 2048
+    t.string "proj4text", limit: 2048
+  end
+
   create_table "user_preferences", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "meal_ingredient_id"
@@ -95,7 +103,7 @@ ActiveRecord::Schema.define(version: 2020_04_13_040509) do
   create_table "users", force: :cascade do |t|
     t.string "user_name"
     t.string "email"
-    t.string "user_password"
+    t.string "password_digest"
     t.integer "bmi"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
