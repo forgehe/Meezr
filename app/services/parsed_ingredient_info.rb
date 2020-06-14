@@ -39,7 +39,7 @@ class ParsedIngredientInfo
       end
     
       if response.status != 200
-        pp "error"
+        # pp "error"
         Faraday::Response::RaiseError
       end
       data = JSON.parse(response.body)

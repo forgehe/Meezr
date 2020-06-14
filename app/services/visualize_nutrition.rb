@@ -36,7 +36,7 @@ class VisualizeNutrition
   
       data = response.body
       # data.delete! '\\'
-      pp data
+      # pp data
       data
     rescue Exception => e 
       status = e.response[:status]

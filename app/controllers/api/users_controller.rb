@@ -1,7 +1,6 @@
 class Api::UsersController < ApplicationController
 
   def create
-    puts params
     newUser = User.new( 
       user_name: params['user_name'],
       email: params['email'],

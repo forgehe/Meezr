@@ -61,7 +61,6 @@ class Api::MealsController < ApplicationController
   end
 
   def search
-    puts params
     #render json: Meal.where("title LIKE ? " , "%#{params['query']}%")
     render json: Meal.includes([:meal_photos, :meal_ingredients, :meal_categories, :user]).where({is_deleted: false, is_public: true}).where("title LIKE ? " , "%#{params['query']}%").limit(10), include: [:meal_photos, :meal_ingredients, :meal_categories, :user => {:only => :user_name}]
   end

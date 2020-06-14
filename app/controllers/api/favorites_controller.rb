@@ -4,7 +4,6 @@ class Api::FavoritesController < ApplicationController
   end 
 
   def index
-    # puts session[]
     render json: {favorites: Favorite.select("meal_id").where(user_id: params[:user_id])}
   end
   
