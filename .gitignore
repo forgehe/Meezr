@@ -67,3 +67,8 @@ yarn-debug.log*
 
 /public
 .DS_Store
+.env-pratik
+
+db/backups/
+
+lib/tasks/db.rake
