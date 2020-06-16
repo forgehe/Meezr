@@ -26,7 +26,10 @@ config/master.key
 # dotenv
 # TODO Comment out this rule if environment variables can be committed
 .env
-.rbenv
+
+#rbenv files
+.rbenv-vars
+.ruby-version
 
 ## Environment normalization:
 /.bundle
@@ -61,6 +64,9 @@ node_modules/
 /yarn-error.log
 yarn-debug.log*
 .yarn-integrity
+
+# NPM files
+npm-debug.log*
 
 # Ignore uploaded files in development
 /storage/*
