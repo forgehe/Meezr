@@ -26,6 +26,7 @@ config/master.key
 # dotenv
 # TODO Comment out this rule if environment variables can be committed
 .env
+.rbenv
 
 ## Environment normalization:
 /.bundle
@@ -72,3 +73,7 @@ yarn-debug.log*
 db/backups/
 
 lib/tasks/db.rake
+
+config/database.yml
+
+shared/
