@@ -20,6 +20,7 @@ export default function SingleMeal(props) {
     function getData() {
       return Promise.resolve(axios.get(`/api/${location.pathname}`)).then(
         (res) => {
+          document.title = `${res.data.title} - Meezr`;
           return setState([res.data]);
         }
       );

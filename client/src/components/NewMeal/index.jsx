@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import {
   Container,
@@ -134,7 +135,7 @@ export default function NewMeal() {
   const handleClose = () => {
     setSnackOpen(false);
   };
-
+  let history = useHistory();
   useEffect(() => {
     if (submitState) {
       axios
@@ -143,6 +144,9 @@ export default function NewMeal() {
           setSubmitMsg({ is_error: false, message: response.data.message });
           setSubmitState(false);
           setSnackOpen(true);
+          setTimeout(function () {
+            history.push(`/`);
+          }, 3000);
         })
         .catch(function (error) {
           console.log(error.response);
@@ -155,6 +159,10 @@ export default function NewMeal() {
         });
     }
   }, [submitState]);
+
+  useEffect(() => {
+    document.title = "Create a new meal - Meezr";
+  }, []);
 
   return (
     <ThemeProvider theme={theme}>

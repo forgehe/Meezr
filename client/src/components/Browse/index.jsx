@@ -54,6 +54,13 @@ export default function Browse(props) {
     }
     getData();
     getFavorites();
+    if (location.pathname === "/") {
+      document.title = `Welcome to Meezr!`;
+    } else {
+      document.title = `Search results for: ${location.pathname.slice(
+        8
+      )} - Meezr`;
+    }
   }, [match.params]);
 
   const meals = state.map((meal) => {
